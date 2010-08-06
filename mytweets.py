@@ -9,9 +9,10 @@ con = httplib.HTTPConnection("api.twitter.com")
 def getTweets(num):
 	request = "";
 	if(num == -1):
-		request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=200&include_rts=1&trim_user=1"
+		request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=150&include_rts=1&trim_user=1"
 	else:
-		request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=200&include_rts=1&trim_user=1&since_id=" + num
+		request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=150&include_rts=1&trim_user=1&since_id=" + num
+	print str(request)
 	return doRequest(request)
 
 def doRequest(request):
@@ -23,11 +24,11 @@ def processTweets(obj):
 	if(len(obj) == 200):
 		maxid = (obj[-1])['id'] - 1
 		if(tweet_id == -1):
-			request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=200&include_rts=1&trim_user=1&max_id=" + str(maxid)
+			request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=150&include_rts=1&trim_user=1&max_id=" + str(maxid)
 		else:
-			request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=200&include_rts=1&trim_user=1&max_id=" + str(maxid) + "&since_id=" + tweet_id
+			request = "/1/statuses/user_timeline.json?screen_name=" + sys.argv[1] + "&count=150&include_rts=1&trim_user=1&max_id=" + str(maxid) + "&since_id=" + tweet_id
 		processTweets(doRequest(request))
-		
+	print str(obj)
 	for tweet in reversed(obj):
 		f = open("tweet_id",'w')
 		f.write(tweet['id_str'])
