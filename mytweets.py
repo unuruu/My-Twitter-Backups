@@ -1,5 +1,6 @@
 # mytweets.py - Creates an archive of your tweets as a Git repo
 # Sankha Narayan Guria <sankha93@gmail.com>
+# Modified by @Unuruu
 
 import sys, httplib, os.path, json, subprocess
 
@@ -32,7 +33,7 @@ def processTweets(obj):
 		f.write(tweet['id_str'])
 		f.close()
 		subprocess.call(["git", "add", "."])
-		subprocess.call(["git", "commit", "--date", tweet['created_at'], "-m", tweet['text']])
+		subprocess.call(["git", "commit", "--date", tweet['created_at'], "-m", tweet['text'] + ' [RT:' + str(tweet['retweet_count']) + ']'])
 
 if len(sys.argv) > 1:
 	if(os.path.exists("tweet_id")):
