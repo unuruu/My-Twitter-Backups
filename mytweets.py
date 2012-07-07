@@ -42,5 +42,3 @@ if len(sys.argv) > 1:
 	processTweets(getTweets(tweet_id))
 else:
 	print("Usage: python mytweets.py username")
-
-
